@@ -1,6 +1,6 @@
 # pYIN R package
 
-*pyin* is an R package which wraps the [pYIN](https://code.soundsoftware.ac.uk/projects/pyin) algorithm (Mauch & Dixon, 2014) for fundamental frequency estimation via [Sonic Annotator](https://vamp-plugins.org/sonic-annotator/) (Cannam, Jewell, Rhodes, Sandler & d’Invernoand, 2010) for use in the R environment.
+*pyin* is an R package which wraps the [pYIN](https://code.soundsoftware.ac.uk/projects/pyin) algorithm (Mauch & Dixon, 2014) for fundamental frequency estimation via [Sonic Annotator](https://vamp-plugins.org/sonic-annotator/) (Cannam et al., 2010) for use in the R environment.
 
 ## Installation
 
@@ -42,14 +42,16 @@ my_audio_transcription %>% produce_extra_melodic_features()
 
 See https://vamp-plugins.org/sonic-annotator/ for information about allowed file types etc.
 
-It is possible to also supply transform files, as described there, via the R package version of pYIN (see the `transform_file` argument)
+It is possible to also supply transform files, as described there, via the R package version of pYIN (see the `transform_file` argument).
 
 ### Compatability
 
-This R package currently only supports Windows and Mac 64-bit. If you require support for other systems, please get in touch.
+This R package currently supports Windows, Linux, and Mac 64-bit.
+If you require support for other systems, please get in touch.
 
 ## References
 
-Cannam, C., Jewell, M. O., Rhodes, C., Sandler, M., & d’Inverno, M. (2010). Linked Data And You: Bringing music research software into the Semantic Web. Journal of New Music Research, 39(4), 313–325.
+Cannam, C., Sandler, M., Jewell, M. O., Rhodes, C., & d’Inverno, M. (2010). Linked data and you: Bringing music research software into the Semantic Web. *Journal of New Music Research*, *39*(4), 313–325. <https://doi.org/10.1080/09298215.2010.522715>
 
-Mauch, M., & Dixon, S. (2014). PYIN: a fundamental frequency estimator using probabilistic threshold distributions. Proceedings of the IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP 2014).
+Mauch, M., & Dixon, S. (2014). PYIN: A fundamental frequency estimator using probabilistic threshold distributions. In *Proceedings of the 2014 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)* (pp. 659–663). IEEE. <https://doi.org/10.1109/ICASSP.2014.6853678>
+
