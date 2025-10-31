@@ -14,7 +14,34 @@ pyin(
 )
 }
 \arguments{
-\item{if_bad_result_return_single_na}{}
+\item{file_name}{(character scalar) File to analyse.
+See \url{https://vamp-plugins.org/sonic-annotator/} for information about
+allowed file types.}
+
+\item{transform_file}{(character scalar or \code{NULL}) If a file name is
+specified, the \code{-t} argument is used with the corresponding transform
+file for pYIN execution.}
+
+\item{normalise}{(logical scalar) Whether or not to use the
+\code{--normalise} argument for the pYIN execution.}
+
+\item{hidePrint}{(logical scalar) Whether or not to hide the
+standard error stream (stderr) from pYIN execution in the R console.}
+
+\item{type}{(character scalar \code{"notes"}, \code{"pitch_track"},
+or \code{"both"}) determines the output (see Value).}
+
+\item{if_bad_result_return_single_na}{(logical scalar)}
+}
+\value{
+For \code{type = "notes"} and \code{type = "pitch_track"},
+\code{pyin()} returns a tibble containing the notes or the pitch track data,
+respectively.
+For \code{type = "both"}, it returns a list containing both tibbles.
+The \code{notes} tibble contains the columns \code{file_name}, \code{onset},
+\code{dur} (duration), \code{freq} (frequency), and \code{note}.
+The \code{pitch_track} tibble contains the columns \code{file_name},
+\code{onset}, and code{freq} (frequency).
 }
 \description{
 Compute pYIN on an audio track

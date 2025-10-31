@@ -4,10 +4,10 @@
 #'
 #' @param if_bad_result_return_single_na
 #'
-#' @return
-#' @export
+#' @return If the pYIN setup was successful on your system, the function
+#' returns a 10x5 tibble with the transcribed note events of the test file.
 #'
-#' @examples
+#' @export
 test_pyin <- function(if_bad_result_return_single_na = TRUE) {
   pyin(file_name = system.file('extdata/test.wav', package = 'pyin'),
        if_bad_result_return_single_na = if_bad_result_return_single_na)
@@ -16,17 +16,35 @@ test_pyin <- function(if_bad_result_return_single_na = TRUE) {
 
 #' Compute pYIN on an audio track
 #'
-#' @param file_name
-#' @param transform_file
-#' @param normalise
-#' @param hidePrint
-#' @param type
-#' @param if_bad_result_return_single_na
+#' @param file_name (character scalar) File to analyse.
+#' See \url{https://vamp-plugins.org/sonic-annotator/} for information about
+#' allowed file types.
 #'
-#' @return
+#' @param transform_file (character scalar or \code{NULL}) If a file name is
+#' specified, the \code{-t} argument is used with the corresponding transform
+#' file for pYIN execution.
+#'
+#' @param normalise (logical scalar) Whether or not to use the
+#' \code{--normalise} argument for the pYIN execution.
+#'
+#' @param hidePrint (logical scalar) Whether or not to hide the
+#' standard error stream (stderr) from pYIN execution in the R console.
+#'
+#' @param type (character scalar \code{"notes"}, \code{"pitch_track"},
+#' or \code{"both"}) determines the output (see Value).
+#'
+#' @param if_bad_result_return_single_na (logical scalar)
+#'
+#' @return For \code{type = "notes"} and \code{type = "pitch_track"},
+#' \code{pyin()} returns a tibble containing the notes or the pitch track data,
+#' respectively.
+#' For \code{type = "both"}, it returns a list containing both tibbles.
+#' The \code{notes} tibble contains the columns \code{file_name}, \code{onset},
+#' \code{dur} (duration), \code{freq} (frequency), and \code{note}.
+#' The \code{pitch_track} tibble contains the columns \code{file_name},
+#' \code{onset}, and code{freq} (frequency).
+#'
 #' @export
-#'
-#' @examples
 pyin <- function(file_name,
                  transform_file = NULL,
                  normalise = FALSE,
@@ -34,17 +52,13 @@ pyin <- function(file_name,
                  type = c("notes", "pitch_track", "both"),
                  if_bad_result_return_single_na = TRUE) {
 
-  if(length(type) > 1) {
-    type <- type[1]
-  }
+  type <- match.arg(type)
 
   stopifnot(assertthat::is.string(file_name),
             assertthat::is.string(transform_file) | is.null(transform_file),
-            is.logical(normalise),
-            is.logical(hidePrint),
-            assertthat::is.string(type),
-            is.logical(if_bad_result_return_single_na),
-            type %in% c("notes", "pitch_track", "both"))
+            assertthat::is.flag(normalise),
+            assertthat::is.flag(hidePrint),
+            assertthat::is.flag(if_bad_result_return_single_na))
 
   logging::loginfo("Calling pyin")
   logging::loginfo("Type: %s", type)
@@ -250,15 +264,26 @@ pyin_construct_args <- function(transform_file, vamp_cmd, file_name, normalise) 
 
 pyin_construct_command <- function(args, hidePrint, os) {
 
-  if(os == "osx") {
-    cmd <- system.file('bin/osx/sonic-annotator', package = 'pyin')
-  } else if(os == "windows") {
-    cmd <- system.file('bin/windows64/sonic-annotator64.exe', package = 'pyin')
-  } else if(os == "linux") {
-    cmd <- system.file('bin/linux64/sonic-annotator', package = 'pyin')
-  } else {
-    warning('OS not supported.')
-  }
+  # if(os == "osx") {
+  #   cmd <- system.file('bin/osx/sonic-annotator', package = 'pyin')
+  # } else if(os == "windows") {
+  #   cmd <- system.file('bin/windows64/sonic-annotator64.exe', package = 'pyin')
+  # } else if(os == "linux") {
+  #   cmd <- system.file('bin/linux64/sonic-annotator', package = 'pyin')
+  # } else {
+  #   warning('OS not supported.')
+  # }
+  cmd <-
+    switch(
+      os,
+      "osx" = system.file('bin/osx/sonic-annotator',
+                          package = 'pyin'),
+      "windows" = system.file('bin/windows64/sonic-annotator64.exe',
+                              package = 'pyin'),
+      "linux" = system.file('bin/linux64/sonic-annotator',
+                            package = 'pyin'),
+      stop('OS not supported.')
+    )
 
   logging::loginfo("Execute command: %s", cmd)
 

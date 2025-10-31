@@ -9,6 +9,10 @@ test_pyin(if_bad_result_return_single_na = TRUE)
 \arguments{
 \item{if_bad_result_return_single_na}{}
 }
+\value{
+If the pYIN setup was successful on your system, the function
+returns a 10x5 tibble with the transcribed note events of the test file.
+}
 \description{
 Test pyin is working
 }
