@@ -7,7 +7,9 @@
 test_pyin(if_bad_result_return_single_na = TRUE)
 }
 \arguments{
-\item{if_bad_result_return_single_na}{}
+\item{if_bad_result_return_single_na}{(logical scalar) Whether or not to
+return a single \code{NA} instead of a tibble if pYIN execution has a bad
+result.}
 }
 \value{
 If the pYIN setup was successful on your system, the function

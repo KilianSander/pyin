@@ -31,7 +31,9 @@ standard error stream (stderr) from pYIN execution in the R console.}
 \item{type}{(character scalar \code{"notes"}, \code{"pitch_track"},
 or \code{"both"}) determines the output (see Value).}
 
-\item{if_bad_result_return_single_na}{(logical scalar)}
+\item{if_bad_result_return_single_na}{(logical scalar) Whether or not to
+return a single \code{NA} instead of a tibble if pYIN execution has a bad
+result.}
 }
 \value{
 For \code{type = "notes"} and \code{type = "pitch_track"},
@@ -41,7 +43,7 @@ For \code{type = "both"}, it returns a list containing both tibbles.
 The \code{notes} tibble contains the columns \code{file_name}, \code{onset},
 \code{dur} (duration), \code{freq} (frequency), and \code{note}.
 The \code{pitch_track} tibble contains the columns \code{file_name},
-\code{onset}, and code{freq} (frequency).
+\code{onset}, and \code{freq} (frequency).
 }
 \description{
 Compute pYIN on an audio track
