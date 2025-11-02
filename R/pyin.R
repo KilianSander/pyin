@@ -275,7 +275,7 @@ pyin_construct_command <- function(args, hidePrint, os) {
   if(os %in% suppoted_os) {
     cmd <- system.file(os_bin[os], package = 'pyin')
   } else {
-    warning('OS not supported')
+    stop('OS not supported')
   }
 
   logging::loginfo("Execute command: %s", cmd)
