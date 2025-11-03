@@ -97,7 +97,7 @@ pyin <- function(file_name,
   return(res)
 }
 
-suppoted_os <- c("osx", "linux", "windows")
+supported_os <- c("osx", "linux", "windows")
 os_bin <- c(
   "osx" = "bin/osx/sonic-annotator",
   "linux" = "bin/linux64/sonic-annotator",
@@ -116,7 +116,7 @@ pyin_single <- function(file_name,
   logging::loginfo("Operating system: %s", op_sys)
 
 
-  if(op_sys %in% suppoted_os) {
+  if(op_sys %in% supported_os) {
 
     set_vamp_variable(op_sys)
 
@@ -272,7 +272,7 @@ pyin_construct_args <- function(transform_file, vamp_cmd, file_name, normalise) 
 
 pyin_construct_command <- function(args, hidePrint, os) {
 
-  if(os %in% suppoted_os) {
+  if(os %in% supported_os) {
     cmd <- system.file(os_bin[os], package = 'pyin')
   } else {
     stop('OS not supported')
